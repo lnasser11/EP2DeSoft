@@ -3850,4 +3850,18 @@ print(' ')
 
 print('Um país foi sorteado! Boa sorte!')
 
+print(' ')
+print(' ')
+print(' ')
+
+tentativas = 20
+
 print(pais_sorteado) # Teste pra ver se ta sorteando um país mesmo
+
+while tentativas > 0:
+  jogada = input('Qual é seu palpite? ')
+  if jogada != pais_sorteado:
+    print('Errado!')
+    tentativas -= 1
+
+

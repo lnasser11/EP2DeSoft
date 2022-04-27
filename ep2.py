@@ -3864,5 +3864,12 @@ while tentativas > 0:
     print('Errado!')
     tentativas -= 1
     print(f'Tentativas restantes: {tentativas}')
+  elif jogada == pais_sorteado:
+    print(f'Parabéns! Você adivinhou o país "{pais_sorteado}" que eu escolhi!')
+    tentativas = 0
 
+print('')
+print('')
+print('')
+print('Fim de jogo!')
 

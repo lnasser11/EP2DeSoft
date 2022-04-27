@@ -3863,5 +3863,6 @@ while tentativas > 0:
   if jogada != pais_sorteado:
     print('Errado!')
     tentativas -= 1
+    print(f'Tentativas restantes: {tentativas}')
 
 

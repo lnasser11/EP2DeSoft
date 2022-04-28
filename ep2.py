@@ -3855,21 +3855,28 @@ print(' ')
 print(' ')
 
 tentativas = 20
+i = 0
+
+mercado_de_dicas = '========================================\n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas\n6. Sair do mercado\n========================================\nEscolha sua opção [0|1|2|3|4|5]:'
 
 print(pais_sorteado) # Teste pra ver se ta sorteando um país mesmo
 
 while tentativas > 0:
-  jogada = input('Qual é seu palpite? ')
+  jogada = input('Qual a sua jogada? ')
+  i += 1
   if jogada != pais_sorteado:
     print('Errado!')
     tentativas -= 1
     print(f'Tentativas restantes: {tentativas}')
+  if jogada == 'dica':
+    print(mercado_de_dicas)
   elif jogada == pais_sorteado:
-    print(f'Parabéns! Você adivinhou o país "{pais_sorteado}" que eu escolhi!')
+    print(f'Parabéns! Você adivinhou o país "{pais_sorteado}" que eu escolhi em {i} tentativas!')
     tentativas = 0
 
 print('')
 print('')
 print('')
+
 print('Fim de jogo!')
 

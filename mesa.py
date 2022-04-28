@@ -1,0 +1,1 @@
+mercado_de_dicas = print('========================================\n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas\n6. Sair do mercado\n========================================\nEscolha sua opção [0|1|2|3|4|5]:')

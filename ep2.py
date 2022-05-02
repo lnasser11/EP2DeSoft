@@ -3910,6 +3910,10 @@ while tentativas > 0:
   elif jogada == pais_sorteado:
     print(f'Parabéns! Você adivinhou o país "{pais_sorteado}" que eu escolhi em {i} tentativas!')
     tentativas = 0
+  elif jogada == 'desisto':
+    print('Finalizando jogo...')
+    tentativas = 0
+    
 
 print('')
 print('')

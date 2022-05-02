@@ -3873,6 +3873,7 @@ area = dados[pais_sorteado]
 while tentativas > 0:
   jogada = input('Qual a sua jogada? ')
   i += 1
+<<<<<<< Updated upstream
 
   if jogada == 'dica':
     print(mercado_de_dicas) 
@@ -3889,6 +3890,16 @@ while tentativas > 0:
       print(area)
   elif jogada != pais_sorteado and jogada != 'dica' and jogada != 'desisto' and jogada != 'inventario':
     print('Errado!')
+=======
+  if jogada == 'dica':
+    print(mercado_de_dicas)
+  if jogada == "desisto":
+    tentativas = 0
+  if jogada == "inventario":
+    print(tentativas)
+  if jogada != pais_sorteado and jogada != "dica" and jogada != "inventario" and jogada != "desisto":
+    print('Errado!') 
+>>>>>>> Stashed changes
     tentativas -= 1
     print(f'Tentativas restantes: {tentativas}')
   elif jogada == pais_sorteado:

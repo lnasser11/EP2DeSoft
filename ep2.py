@@ -3866,6 +3866,7 @@ custo_dicas = {
         5: 7,
         6: 0
               }
+
 print(pais_sorteado) # Teste pra ver se ta sorteando um país mesmo
 
 
@@ -3894,11 +3895,13 @@ while tentativas > 0:
       tentativas -= 6
       print(f'Tentativas restantes: {tentativas}')
     elif dica == 4: #dica 4
-      print('teste 4')
+      populacao = dados[pais_sorteado].get('populacao')
+      print(populacao)
       tentativas -= 5
       print(f'Tentativas restantes: {tentativas}')
     elif dica == 5: #dica 5
-      print('teste 5')
+      continente = dados[pais_sorteado].get('continente')
+      print(continente)
       tentativas -= 7
       print(f'Tentativas restantes: {tentativas}')
     elif dica == 6: #dica 6

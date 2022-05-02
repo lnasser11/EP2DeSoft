@@ -3873,35 +3873,40 @@ area = dados[pais_sorteado]
 while tentativas > 0:
   jogada = input('Qual a sua jogada? ')
   i += 1
-<<<<<<< Updated upstream
-
+  print(f'Tentativas restantes: {tentativas}')
   if jogada == 'dica':
     print(mercado_de_dicas) 
     print('Você pode comprar as seguintes dicas: ')
     for i in custo_dicas:
       if tentativas > i:
         print(i)
-    dica = input(f'Escolha sua opção [1|2|3|4|5|6]: ')
-  if dica == 1:
+    dica = int(input(f'Escolha sua opção [1|2|3|4|5|6]: '))
+    if dica == 1: #dica 1
       print('teste 1')
-  elif dica == 2:
-      print(pais_sorteado[0])
-  elif dica == 3:
-      print(area)
+      tentativas -= 4
+      print(f'Tentativas restantes: {tentativas}')
+    elif dica == 2: #dica 2
+      print('teste 2')
+      tentativas -= 3
+      print(f'Tentativas restantes: {tentativas}')
+    elif dica == 3: #dica 3
+      print('teste 3')
+      tentativas -= 6
+      print(f'Tentativas restantes: {tentativas}')
+    elif dica == 4: #dica 4
+      print('teste 4')
+      tentativas -= 5
+      print(f'Tentativas restantes: {tentativas}')
+    elif dica == 5: #dica 5
+      print('teste 5')
+      tentativas -= 7
+      print(f'Tentativas restantes: {tentativas}')
+    elif dica == 6: #dica 6
+      print('\n\nVoltando ao jogo!\n\n')
+      
   elif jogada != pais_sorteado and jogada != 'dica' and jogada != 'desisto' and jogada != 'inventario':
     print('Errado!')
-=======
-  if jogada == 'dica':
-    print(mercado_de_dicas)
-  if jogada == "desisto":
-    tentativas = 0
-  if jogada == "inventario":
-    print(tentativas)
-  if jogada != pais_sorteado and jogada != "dica" and jogada != "inventario" and jogada != "desisto":
-    print('Errado!') 
->>>>>>> Stashed changes
     tentativas -= 1
-    print(f'Tentativas restantes: {tentativas}')
   elif jogada == pais_sorteado:
     print(f'Parabéns! Você adivinhou o país "{pais_sorteado}" que eu escolhi em {i} tentativas!')
     tentativas = 0

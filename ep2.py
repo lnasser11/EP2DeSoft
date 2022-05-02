@@ -3896,7 +3896,7 @@ while tentativas > 0:
       print(f'Tentativas restantes: {tentativas}')
     elif dica == 4: #dica 4
       populacao = dados[pais_sorteado].get('populacao')
-      print(populacao)
+      print(f'{populacao} pessoas.')
       tentativas -= 5
       print(f'Tentativas restantes: {tentativas}')
     elif dica == 5: #dica 5

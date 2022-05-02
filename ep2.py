@@ -3857,19 +3857,40 @@ print(' ')
 tentativas = 20
 i = 0
 
-mercado_de_dicas = '========================================\n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas\n6. Sair do mercado\n========================================\nEscolha sua opção [0|1|2|3|4|5]:'
-
+mercado_de_dicas = '========================================\n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas\n6. Sair do mercado\n========================================\n'
+custo_dicas = {
+        1: 4, 
+        2: 3,
+        3: 6,
+        4: 5,
+        5: 7,
+        6: 0
+              }
 print(pais_sorteado) # Teste pra ver se ta sorteando um país mesmo
 
+
+area = dados[pais_sorteado]
 while tentativas > 0:
   jogada = input('Qual a sua jogada? ')
   i += 1
-  if jogada != pais_sorteado:
+
+  if jogada == 'dica':
+    print(mercado_de_dicas) 
+    print('Você pode comprar as seguintes dicas: ')
+    for i in custo_dicas:
+      if tentativas > i:
+        print(i)
+    dica = input(f'Escolha sua opção [1|2|3|4|5|6]: ')
+  if dica == 1:
+      print('teste 1')
+  elif dica == 2:
+      print(pais_sorteado[0])
+  elif dica == 3:
+      print(area)
+  elif jogada != pais_sorteado and jogada != 'dica' and jogada != 'desisto' and jogada != 'inventario':
     print('Errado!')
     tentativas -= 1
     print(f'Tentativas restantes: {tentativas}')
-  if jogada == 'dica':
-    print(mercado_de_dicas)
   elif jogada == pais_sorteado:
     print(f'Parabéns! Você adivinhou o país "{pais_sorteado}" que eu escolhi em {i} tentativas!')
     tentativas = 0

@@ -3842,8 +3842,6 @@ print('Comandos:\n   dica       - entra no mercado de dicas\n   desisto    - des
 
 pais_sorteado = sorteia_pais(dados)
 
-tentativas = 20
-
 print(' ')
 print(' ')
 print(' ')
@@ -3856,6 +3854,7 @@ print(' ')
 
 tentativas = 20
 i = 0
+c = 0 # Index das letras da capital para a dica 2 
 
 mercado_de_dicas = '========================================\n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas\n6. Sair do mercado\n========================================\n'
 custo_dicas = {
@@ -3869,8 +3868,15 @@ custo_dicas = {
 
 print(pais_sorteado) # Teste pra ver se ta sorteando um país mesmo
 
+# Dados do País sorteado em variáveis
+area = (dados[pais_sorteado])['area']
+populacao = (dados[pais_sorteado])['populacao']
+capital = (dados[pais_sorteado])['capital']
+latitude = ((dados[pais_sorteado])['geo'])['latitude']
+longitude = ((dados[pais_sorteado])['geo'])['longitude']
+bandeira = list((dados[pais_sorteado])['bandeira'].keys())
+continente = (dados[pais_sorteado])['continente']
 
-area = dados[pais_sorteado]
 while tentativas > 0:
   jogada = input('Qual a sua jogada? ')
   i += 1
@@ -3883,33 +3889,31 @@ while tentativas > 0:
       if tentativas > i:
         print(i)
     dica = int(input(f'Escolha sua opção [1|2|3|4|5|6]: '))
+
     if dica == 1: #dica 1
       print('teste 1')
       tentativas -= 4
       print(f'Tentativas restantes: {tentativas}')
     elif dica == 2: #dica 2
-      print('teste 2')
+      print(f'A próxima letra da Capital é: {capital[c]}')
       tentativas -= 3
+      c+=1
       print(f'Tentativas restantes: {tentativas}')
     elif dica == 3: #dica 3
-      print('teste 3')
+      print(f'A área do país é: {area}')
       tentativas -= 6
       print(f'Tentativas restantes: {tentativas}')
     elif dica == 4: #dica 4
-      populacao = dados[pais_sorteado].get('populacao')
       print(f'{populacao} pessoas.')
       tentativas -= 5
       print(f'Tentativas restantes: {tentativas}')
     elif dica == 5: #dica 5
-      continente = dados[pais_sorteado].get('continente')
-      print(continente)
+      print(f'Está no continente: {continente}')
       tentativas -= 7
       print(f'Tentativas restantes: {tentativas}')
     elif dica == 6: #dica 6
       print('\n\nVoltando ao jogo!\n\n')
       
-  if jogada == 'dica':
-    print(mercado_de_dicas)
   if jogada == "desisto":
     tentativas = 0
   if jogada == "inventario":
@@ -3930,4 +3934,3 @@ print('')
 print('')
 
 print('Fim de jogo!')
-

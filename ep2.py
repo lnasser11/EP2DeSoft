@@ -3,6 +3,23 @@
 import random as rd
 from math import *
 
+def haversine(raio, lat1, lon1, lat2, lon2):
+  lat1 = radians(lat1)
+  lon1 = radians(lon1)
+  lat2 = radians(lat2)
+  lon2 = radians(lon2)
+  senlat = sin((lat2 - lat1)/2)
+  coslat1 = cos(lat1)
+  coslat2 = cos(lat2)
+  mcoslat = coslat1*coslat2
+  senlon = sin((lon2 - lon1)/2)
+  cont_r = (senlat**2) + (coslat1*coslat2*(senlon**2))
+  raiz = sqrt(cont_r)
+  asin_r = asin(raiz)
+  d = 2 * raio * asin_r
+  return d
+    
+
 def normaliza(dic):
     d = {}
     for i in dic:
@@ -3853,9 +3870,11 @@ print(' ')
 print(' ')
 
 tentativas = 20
-i = 0
-c = 0 # Index das letras da capital para a dica 2 
 
+i = 0
+
+c = 0 # Index das letras da capital para a dica 2 
+d = 0 # index das distancias
 mercado_de_dicas = '========================================\n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas\n6. Sair do mercado\n========================================\n'
 custo_dicas = {
         1: 4, 
@@ -3866,7 +3885,7 @@ custo_dicas = {
         6: 0
               }
 
-print(pais_sorteado) # Teste pra ver se ta sorteando um país mesmo
+#print(pais_sorteado) # Teste pra ver se ta sorteando um país mesmo
 
 # Dados do País sorteado em variáveis
 area = (dados[pais_sorteado])['area']
@@ -3877,10 +3896,39 @@ longitude = ((dados[pais_sorteado])['geo'])['longitude']
 bandeira = list((dados[pais_sorteado])['bandeira'].keys())
 continente = (dados[pais_sorteado])['continente']
 
+
+
+lista_distancias = []
+#print(capital)
+lista_tentativas = []
+
+print(f'Tentativas restantes:', f'\033[0;31m {tentativas}\033[0;0m')
+
+capital_str = ''
+
 while tentativas > 0:
   jogada = input('Qual a sua jogada? ')
   i += 1
-  print(f'Tentativas restantes: {tentativas}')
+
+  if jogada != pais_sorteado and jogada != "dica" and jogada != "inventario" and jogada != "desisto" and jogada in dados and jogada not in lista_tentativas:
+    print('Errado!') 
+    tentativas -= 1
+
+  if jogada in lista_tentativas and jogada in dados:
+    print(f'Você já chutou {jogada}! Tente com outro país!')
+
+  lista_tentativas.append(jogada)
+  
+  if jogada not in dados:
+    print('País desconhecido.')
+
+  if jogada in dados:
+    distancia = haversine(EARTH_RADIUS, ((dados[jogada])['geo'])['latitude'], ((dados[jogada])['geo'])['longitude'], latitude, longitude)
+    lista_distancias.append(distancia)
+    print('Distâncias: ')
+    for dist in lista_distancias:
+      print(f'     \033[0,35m{dist:.2f} KM\033[0;0m')
+
 
   if jogada == 'dica':
     print(mercado_de_dicas) 
@@ -3893,41 +3941,53 @@ while tentativas > 0:
     if dica == 1: #dica 1
       print('teste 1')
       tentativas -= 4
-      print(f'Tentativas restantes: {tentativas}')
+
     elif dica == 2: #dica 2
-      print(f'A próxima letra da Capital é: {capital[c]}')
+      print(f'A próxima letra da Capital é:', f'\033[0,33m {capital[c]}\033[0,0m')
+      capital_str += capital[c]
+      print(f'Letras obtidas por enquanto: {capital_str}')
       tentativas -= 3
       c+=1
-      print(f'Tentativas restantes: {tentativas}')
+
     elif dica == 3: #dica 3
       print(f'A área do país é: {area}')
       tentativas -= 6
-      print(f'Tentativas restantes: {tentativas}')
+
     elif dica == 4: #dica 4
       print(f'{populacao} pessoas.')
       tentativas -= 5
-      print(f'Tentativas restantes: {tentativas}')
+
     elif dica == 5: #dica 5
       print(f'Está no continente: {continente}')
       tentativas -= 7
-      print(f'Tentativas restantes: {tentativas}')
+
     elif dica == 6: #dica 6
       print('\n\nVoltando ao jogo!\n\n')
       
-  if jogada == "desisto":
-    tentativas = 0
   if jogada == "inventario":
     print(tentativas)
-  if jogada != pais_sorteado and jogada != "dica" and jogada != "inventario" and jogada != "desisto":
-    print('Errado!') 
-    tentativas -= 1
-  elif jogada == pais_sorteado:
+  
+
+
+  
+  
+  print(f'Tentativas restantes:', f'\033[0;31m {tentativas}\033[0;0m')
+
+
+  if jogada == pais_sorteado:
     print(f'Parabéns! Você adivinhou o país "{pais_sorteado}" que eu escolhi em {i} tentativas!')
+    print('Finalizando jogo...')
     tentativas = 0
-  elif jogada == 'desisto':
+
+  
+  if jogada == 'desisto':
     print('Finalizando jogo...')
     tentativas = 0
     
+
+
+
+
 
 print('')
 print('')

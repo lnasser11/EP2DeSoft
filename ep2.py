@@ -3899,12 +3899,10 @@ continente = (dados[pais_sorteado])['continente']
 
 
 lista_distancias = []
-#print(capital)
 lista_tentativas = []
+capital_str = ''
 
 print(f'Tentativas restantes:', f'\033[0;31m {tentativas}\033[0;0m')
-
-capital_str = ''
 
 while tentativas > 0:
   jogada = input('Qual a sua jogada? ')
@@ -3924,10 +3922,11 @@ while tentativas > 0:
 
   if jogada in dados:
     distancia = haversine(EARTH_RADIUS, ((dados[jogada])['geo'])['latitude'], ((dados[jogada])['geo'])['longitude'], latitude, longitude)
-    lista_distancias.append(distancia)
+    if distancia not in lista_distancias:
+      lista_distancias.append(distancia)
     print('Distâncias: ')
     for dist in lista_distancias:
-      print(f'     \033[0,35m{dist:.2f} KM\033[0;0m')
+      print(f'     \033[0,35m{dist:.2f} KM --> {jogada}\033[0;0m')
 
 
   if jogada == 'dica':

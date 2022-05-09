@@ -3872,9 +3872,9 @@ print(' ')
 tentativas = 20
 
 i = 0
-
 c = 0 # Index das letras da capital para a dica 2 
 d = 0 # index das distancias
+
 mercado_de_dicas = '========================================\n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas\n6. Sair do mercado\n========================================\n'
 custo_dicas = {
         1: 4, 
@@ -3992,4 +3992,5 @@ print('')
 print('')
 print('')
 
-print('Fim de jogo!')
+print('Fim de jogo! \n')
+print(f'O país sortedo era {pais_sorteado}!')

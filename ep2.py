@@ -1,7 +1,9 @@
-#EP2 Felipe Maia e Lucca Nasser
+#Projeto de Design de Software EP2 Felipe Maia e Lucca Nasser
+#Criar um jogo de adivinhação de países
 
 import random as rd
 from math import *
+import haversine
 
 def haversine(raio, lat1, lon1, lat2, lon2):
   lat1 = radians(lat1)
@@ -18,7 +20,6 @@ def haversine(raio, lat1, lon1, lat2, lon2):
   asin_r = asin(raiz)
   d = 2 * raio * asin_r
   return d
-    
 
 def normaliza(dic):
     d = {}
@@ -32,7 +33,7 @@ def sorteia_pais(dict):
     pais = rd.choice(list(dict))
     return pais
 
-tentativas = 20
+
 
 EARTH_RADIUS = 6371
 
@@ -3863,13 +3864,26 @@ print(' ')
 print(' ')
 print(' ')
 
+#Define a dificuldade do jogo
+dif = int(input('Escolha sua dificuldade:\n   1. Fácil --> 20 tentativas\n   2. Médio --> 10 tentativas\n   3. Difícil --> 5 tentativas\n    Dificuldade escolhida [1,2,3]: '))
+if dif == 1:
+  tentativas = 20
+elif dif == 2:
+  tentativas = 10
+elif dif == 3:
+  tentativas = 5
+
+
+print(' ')
+print(' ')
+print(' ')
+
 print('Um país foi sorteado! Boa sorte!')
 
 print(' ')
 print(' ')
 print(' ')
 
-tentativas = 20
 
 i = 0
 c = 0 # Index das letras da capital para a dica 2 
@@ -3885,7 +3899,6 @@ custo_dicas = {
         6: 0
               }
 
-#print(pais_sorteado) # Teste pra ver se ta sorteando um país mesmo
 
 # Dados do País sorteado em variáveis
 area = (dados[pais_sorteado])['area']
@@ -3902,7 +3915,12 @@ lista_distancias = []
 lista_tentativas = []
 capital_str = ''
 
-print(f'Tentativas restantes:', f'\033[0;31m {tentativas}\033[0;0m')
+if tentativas > 10:
+  print(f'Tentativas restantes:', f'\033[0;32m {tentativas}\033[0;0m')
+elif tentativas <= 10 and tentativas > 5:
+  print(f'Tentativas restantes:', f'\033[0;33m {tentativas}\033[0;0m')
+elif tentativas <= 5:
+  print(f'Tentativas restantes:', f'\033[0;31m {tentativas}\033[0;0m')
 
 while tentativas > 0:
   jogada = input('Qual a sua jogada? ')
@@ -3917,7 +3935,7 @@ while tentativas > 0:
 
   lista_tentativas.append(jogada)
   
-  if jogada not in dados:
+  if jogada not in dados and jogada != (1,2,3,4,5,6) and jogada != 'dica' and jogada != 'inventario':
     print('País desconhecido.')
 
   if jogada in dados:
@@ -3925,8 +3943,8 @@ while tentativas > 0:
     if distancia not in lista_distancias:
       lista_distancias.append(distancia)
     print('Distâncias: ')
-    for dist in lista_distancias:
-      print(f'     \033[0,35m{dist:.2f} KM --> {jogada}\033[0;0m')
+    for i in lista_distancias:
+      print(f'    \033[0;35m{distancia:.2f} KM --> {jogada}\033[0;0m')
 
 
   if jogada == 'dica':
@@ -3970,8 +3988,12 @@ while tentativas > 0:
 
   
   
-  print(f'Tentativas restantes:', f'\033[0;31m {tentativas}\033[0;0m')
-
+  if tentativas > 10:
+    print(f'Tentativas restantes:', f'\033[0;32m {tentativas}\033[0;0m')
+  elif tentativas <= 10 and tentativas > 5:
+    print(f'Tentativas restantes:', f'\033[0;33m {tentativas}\033[0;0m')
+  elif tentativas <= 5:
+    print(f'Tentativas restantes:', f'\033[0;31m {tentativas}\033[0;0m')
 
   if jogada == pais_sorteado:
     print(f'Parabéns! Você adivinhou o país "{pais_sorteado}" que eu escolhi em {i} tentativas!')

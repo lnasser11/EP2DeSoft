@@ -3,7 +3,9 @@
 
 import random as rd
 from math import *
-import haversine
+
+def cor(r, g, b, texto):
+    return f"\033[38;2;{r};{g};{b}m{texto} \033[38;2;255;255;255m"
 
 def haversine(raio, lat1, lon1, lat2, lon2):
   lat1 = radians(lat1)
@@ -15,7 +17,7 @@ def haversine(raio, lat1, lon1, lat2, lon2):
   coslat2 = cos(lat2)
   mcoslat = coslat1*coslat2
   senlon = sin((lon2 - lon1)/2)
-  cont_r = (senlat**2) + (coslat1*coslat2*(senlon**2))
+  cont_r = (senlat**2) + (mcoslat*(senlon**2))
   raiz = sqrt(cont_r)
   asin_r = asin(raiz)
   d = 2 * raio * asin_r
@@ -32,8 +34,6 @@ def normaliza(dic):
 def sorteia_pais(dict):
     pais = rd.choice(list(dict))
     return pais
-
-
 
 EARTH_RADIUS = 6371
 
@@ -3858,14 +3858,25 @@ print('=====================================\n|                                 
 print(' ')
 print('Comandos:\n   dica       - entra no mercado de dicas\n   desisto    - desiste da rodada\n   inventario - exibe sua pontuação')
 
+print('Chute um país até acertar para vencer!\nEscreva em letras minúsculas e sem acento!')
+
 pais_sorteado = sorteia_pais(dados)
 
 print(' ')
 print(' ')
 print(' ')
 
+facil = cor(36, 255, 160, '20')
+medio = cor(255, 248, 36, '10')
+dificil = cor(255, 69, 36, '5')
+
+facil_str = cor(36, 255, 160,'Fácil')
+medio_str = cor(255, 248, 36, 'Médio')
+dificil_str = cor(255, 69, 36, 'Difícil')
+
+escolha_dificuldade = cor(37, 203, 245, '1|2|3')
 #Define a dificuldade do jogo
-dif = int(input('Escolha sua dificuldade:\n   1. Fácil --> 20 tentativas\n   2. Médio --> 10 tentativas\n   3. Difícil --> 5 tentativas\n    Dificuldade escolhida [1,2,3]: '))
+dif = int(input(f'Escolha sua dificuldade:\n   1. {facil_str} --> {facil} tentativas\n   2. {medio_str} --> {medio} tentativas\n   3. {dificil_str} --> {dificil} tentativas\n    Dificuldade escolhida [ {escolha_dificuldade}]: '))
 if dif == 1:
   tentativas = 20
 elif dif == 2:
@@ -3889,7 +3900,17 @@ i = 0
 c = 0 # Index das letras da capital para a dica 2 
 d = 0 # index das distancias
 
-mercado_de_dicas = '========================================\n1. Cor da bandeira  - custa 4 tentativas\n2. Letra da capital - custa 3 tentativas\n3. Área             - custa 6 tentativas\n4. População        - custa 5 tentativas\n5. Continente       - custa 7 tentativas\n6. Sair do mercado\n========================================\n'
+
+header = '========================================'
+cdica1 = cor(66, 135, 245,'4')
+cdica2 = cor(66, 135, 245,'3')
+cdica3 = cor(66, 135, 245,'6')
+cdica4 = cor(66, 135, 245,'5')
+cdica5 = cor(66, 135, 245,'7')
+cdica6 = cor(66, 135, 245,'0')
+
+mercado_dicas = f'{header}\n1. Cor da bandeira  - custa {cdica1} tentativas\n2. Letra da capital - custa {cdica2} tentativas\n3. Área             - custa {cdica3} tentativas\n4. População        - custa {cdica4} tentativas\n5. Continente       - custa {cdica5} tentativas\n6. Sair do mercado  - custa {cdica6} tentativas\n{header}'
+
 custo_dicas = {
         1: 4, 
         2: 3,
@@ -3908,8 +3929,6 @@ latitude = ((dados[pais_sorteado])['geo'])['latitude']
 longitude = ((dados[pais_sorteado])['geo'])['longitude']
 bandeira = list((dados[pais_sorteado])['bandeira'].keys())
 continente = (dados[pais_sorteado])['continente']
-
-
 
 lista_distancias = []
 lista_tentativas = []
@@ -3948,7 +3967,7 @@ while tentativas > 0:
 
 
   if jogada == 'dica':
-    print(mercado_de_dicas) 
+    print(mercado_dicas)
     print('Você pode comprar as seguintes dicas: ')
     for i in custo_dicas:
       if tentativas > i:

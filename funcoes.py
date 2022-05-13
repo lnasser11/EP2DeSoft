@@ -31,3 +31,4 @@ def normaliza(dic):
 def sorteia_pais(dict):
     pais = rd.choice(list(dict))
     return pais
+

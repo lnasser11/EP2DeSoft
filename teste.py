@@ -1,10 +1,9 @@
-def colored(r, g, b, text):
-    return "\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(r, g, b, text)
-  
-text = 'Hello, World'
-colored_text = colored(255, 0, 0, text)
-print(colored_text)
-
-#or
-
-print(colored(255, 0, 0, 'Hello, World'))
+dic_dicas = {
+  '1': f'. Cor da bandeira  - custa  tentativas.',
+  '2': f'. Letra da capital - custa  tentativas.',
+  '3': f'. Área             - custa  tentativas.',
+  '4': f'. População        - custa  tentativas.',
+  '5': f'. Continente       - custa  tentativas.',
+  '6': f'. Sair do mercado  - custa  tentativas'
+}
+print(dic_dicas['1'])

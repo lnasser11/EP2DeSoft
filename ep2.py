@@ -96,10 +96,10 @@ populacao = (dados[pais_sorteado])['populacao']
 capital = (dados[pais_sorteado])['capital']
 latitude = ((dados[pais_sorteado])['geo'])['latitude']
 longitude = ((dados[pais_sorteado])['geo'])['longitude']
-bandeira = list((dados[pais_sorteado])['bandeira'].keys())
+bandeira = (dados[pais_sorteado])['bandeira']
 continente = (dados[pais_sorteado])['continente']
 
-
+# Listas Auxiliares
 lista_distancias = []
 lista_chutes = []
 lista_tentativas = []
@@ -149,7 +149,7 @@ while tentativas > 0:
     dica = int(input(f'Escolha sua opção [1|2|3|4|5|6]: '))
 
     if dica == 1: #dica 1
-      print('teste 1')
+      print(f'A cor predominante da bandeira é: {cor_predominante(bandeira)}')
       tentativas -= 4
       del dic_dicas[1]
 
@@ -184,8 +184,6 @@ while tentativas > 0:
     print(tentativas)
   
 
-
-  
   
   if tentativas > 10:
     print(f'Tentativas restantes:', f'\033[0;32m {tentativas}\033[0;0m')
@@ -203,11 +201,6 @@ while tentativas > 0:
   if jogada == 'desisto':
     print('Finalizando jogo...')
     tentativas = 0
-    
-
-
-
-
 
 print('')
 print('')
@@ -215,3 +208,4 @@ print('')
 
 print('Fim de jogo! \n')
 print(f'O país sortedo era {pais_sorteado}!')
+print(bandeira)

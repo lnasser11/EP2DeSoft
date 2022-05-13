@@ -2,7 +2,7 @@ import random as rd
 from math import *
 
 def cor(r, g, b, texto):
-    return f"\033[38;2;{r};{g};{b}m{texto} \033[38;2;255;255;255m"
+    return f"\033[38;2;{r};{g};{b}m{texto}\033[38;2;255;255;255m"
 
 def haversine(raio, lat1, lon1, lat2, lon2):
   lat1 = radians(lat1)
@@ -40,4 +40,13 @@ def cor_predominante(dic):
             i = dic[cor]
             corp = cor
     return corp
+
+def crescente(dist,pais):
+    dic = {}
+    for distancia in dist:
+        dic[distancia] = pais[dist.index(distancia)]
+    return dic
+    
+
+
 

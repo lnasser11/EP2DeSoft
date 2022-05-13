@@ -35,15 +35,31 @@ facil_str = cor(36, 255, 160,'Fácil')
 medio_str = cor(255, 248, 36, 'Médio')
 dificil_str = cor(255, 69, 36, 'Difícil')
 
-escolha_dificuldade = cor(37, 203, 245, '1|2|3')
+um = cor(36, 255, 160,'1')
+dois = cor(255, 248, 36, '2')
+tres = cor(255, 69, 36, '3')
+
+escolha_dificuldade = f'[{um}|{dois}|{tres}]'
+
+tentativas = 0
 #Define a dificuldade do jogo
-dif = int(input(f'Escolha sua dificuldade:\n   1. {facil_str} --> {facil} tentativas\n   2. {medio_str} --> {medio} tentativas\n   3. {dificil_str} --> {dificil} tentativas\n    Dificuldade escolhida [ {escolha_dificuldade}]: '))
+dif = int(input(f'Escolha sua dificuldade:\n   1. {facil_str} --> {facil} tentativas\n   2. {medio_str} --> {medio} tentativas\n   3. {dificil_str} --> {dificil} tentativas\n    Dificuldade escolhida {escolha_dificuldade}: '))
 if dif == 1:
-  tentativas = 20
+  tentativas += 20
 elif dif == 2:
-  tentativas = 10
+  tentativas += 10
 elif dif == 3:
-  tentativas = 5
+  tentativas += 5
+
+while dif != 1 and dif != 2 and dif != 3:
+  dif = int(input(f'Escolha uma opção válida. {escolha_dificuldade}: '))
+  if dif == 1:
+    tentativas += 20
+  elif dif == 2:
+    tentativas += 10
+  elif dif == 3:
+    tentativas += 5
+
 
 
 print(' ')
@@ -104,6 +120,8 @@ lista_distancias = []
 lista_chutes = []
 lista_tentativas = []
 capital_str = ''
+inventario = {}
+
 
 if tentativas > 10:
   print(f'Tentativas restantes:', f'\033[0;32m {tentativas}\033[0;0m')
@@ -125,7 +143,7 @@ while tentativas > 0:
 
   lista_tentativas.append(jogada)
   
-  if jogada not in dados and jogada != (1,2,3,4,5,6) and jogada != 'dica' and jogada != 'inventario':
+  if jogada not in dados and jogada != (1,2,3,4,5,6) and jogada != 'dica' and jogada != 'inventario' and jogada != 'desisto':
     print('País desconhecido.')
 
   if jogada in dados:
@@ -135,8 +153,10 @@ while tentativas > 0:
     if jogada not in lista_chutes:
       lista_chutes.append(jogada)
     print('Distâncias: ')
-    for i in lista_distancias:
-      print(f'    \033[0;35m{i:.2f} KM --> {lista_chutes[lista_distancias.index(i)]}\033[0;0m')
+    cresc = crescente(lista_distancias,lista_chutes)
+    lista_distancias.sort()
+    for dist in lista_distancias:
+      print(f'    \033[0;35m{dist:.2f} KM --> {cresc[dist]}\033[0;0m')
 
 
   if jogada == 'dica':
@@ -149,8 +169,10 @@ while tentativas > 0:
     dica = int(input(f'Escolha sua opção [1|2|3|4|5|6]: '))
 
     if dica == 1: #dica 1
-      print(f'A cor predominante da bandeira é: {cor_predominante(bandeira)}')
+      cor= cor_predominante(bandeira)
+      print(f'A cor predominante da bandeira é: {cor}')
       tentativas -= 4
+      inventario['Cor da bandeira: '] = cor
       del dic_dicas[1]
 
     elif dica == 2: #dica 2
@@ -159,22 +181,26 @@ while tentativas > 0:
       print(f'Letras obtidas por enquanto: {capital_str}')
       tentativas -= 3
       c+=1
+      inventario['Letras da capital: '] = capital_str
       if len(capital)-1 == c:
         del dic_dicas[2]
 
     elif dica == 3: #dica 3
       print(f'A área do país é: {area}')
       del dic_dicas[3]
+      inventario['Área do país: '] = area
       tentativas -= 6
 
     elif dica == 4: #dica 4
       print(f'{populacao} pessoas.')
       tentativas -= 5
+      inventario['População'] = populacao
       del dic_dicas[4]
 
     elif dica == 5: #dica 5
       print(f'Está no continente: {continente}')
       tentativas -= 7
+      inventario['Continente'] = continente
       del dic_dicas[4]
 
     elif dica == 6: #dica 6
@@ -199,13 +225,13 @@ while tentativas > 0:
 
   
   if jogada == 'desisto':
-    print('Finalizando jogo...')
-    tentativas = 0
-
+    desistir = input('Deseja mesmo desistir? [s|n]: ')
+    if desistir == 's':
+      print('Que feio... Lembre-se de nunca desistir se quiser atingir seus sonhos!\nFinalizando jogo...')
+      tentativas = 0
+    elif desistir == 'n':
+      print('Voltando ao jogo...')
 print('')
-print('')
-print('')
-
 print('Fim de jogo! \n')
 print(f'O país sortedo era {pais_sorteado}!')
-print(bandeira)
+print('')

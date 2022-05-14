@@ -73,7 +73,7 @@ print(' ')
 print(' ')
 
 
-i = 0
+indice_jogada = 0
 c = 0 # Index das letras da capital para a dica 2 
 d = 0 # index das distancias
 
@@ -118,10 +118,11 @@ continente = (dados[pais_sorteado])['continente']
 # Listas Auxiliares
 lista_distancias = []
 lista_chutes = []
+lista_dist_colorido = []
 lista_tentativas = []
 capital_str = ''
 inventario = {}
-
+dic_distancia = {} #dicionario de distancias
 
 if tentativas > 10:
   print(f'Tentativas restantes:', f'\033[0;32m {tentativas}\033[0;0m')
@@ -132,7 +133,7 @@ elif tentativas <= 5:
 
 while tentativas > 0:
   jogada = input('Qual a sua jogada? ')
-  i += 1
+
 
   if jogada != pais_sorteado and jogada != "dica" and jogada != "inventario" and jogada != "desisto" and jogada in dados and jogada not in lista_tentativas:
     print('Errado!') 
@@ -148,15 +149,23 @@ while tentativas > 0:
 
   if jogada in dados:
     distancia = haversine(EARTH_RADIUS, ((dados[jogada])['geo'])['latitude'], ((dados[jogada])['geo'])['longitude'], latitude, longitude)
-    if distancia not in lista_distancias:
-      lista_distancias.append(distancia)
     if jogada not in lista_chutes:
       lista_chutes.append(jogada)
-    print('Distâncias: ')
-    cresc = crescente(lista_distancias,lista_chutes)
+    dic_distancia[distancia] = jogada
+    for i in dic_distancia.keys():
+      if i not in lista_distancias:
+        lista_distancias.append(i)
     lista_distancias.sort()
+    print('Distâncias: ')
     for dist in lista_distancias:
-      print(f'    \033[0;35m{dist:.2f} KM --> {cresc[dist]}\033[0;0m')
+      if dist >= 10000:
+        print(cor(166, 43, 237,f'    {dist:.2f} KM --> {dic_distancia[dist]}'))
+      elif dist < 10000 and dist >= 5000:
+        print(cor(237, 211, 43,f'    {dist:.2f} KM --> {dic_distancia[dist]}'))
+      elif dist < 5000 and dist >= 1000:
+        print(cor(92, 237, 43,f'    {dist:.2f} KM --> {dic_distancia[dist]}'))
+      elif dist < 1000:
+        print(cor(41, 240, 193,f'    {dist:.2f} KM --> {dic_distancia[dist]}'))
 
 
   if jogada == 'dica':
@@ -166,7 +175,7 @@ while tentativas > 0:
         print(dic_dicas[index])
     print(header)
 
-    dica = int(input(f'Escolha sua opção [1|2|3|4|5|6]: '))
+    dica = int(input(f'Escolha sua opção: '))
 
     if dica == 1: #dica 1
       cor= cor_predominante(bandeira)
@@ -205,9 +214,15 @@ while tentativas > 0:
 
     elif dica == 6: #dica 6
       print('\n\nVoltando ao jogo!\n\n')
+    
+    elif dica <= 7: 
+      print('Por favor, escolha uma dica que esteja no mercado.')
       
   if jogada == "inventario":
-    print(tentativas)
+    if inventario == {}:
+      print('Seu inventário está vazio.')
+    for i in inventario.keys():
+      print(f'{i} --> {inventario[i]}')
   
 
   
@@ -219,7 +234,7 @@ while tentativas > 0:
     print(f'Tentativas restantes:', f'\033[0;31m {tentativas}\033[0;0m')
 
   if jogada == pais_sorteado:
-    print(f'Parabéns! Você adivinhou o país "{pais_sorteado}" que eu escolhi em {i} tentativas!')
+    print(f'Parabéns! Você adivinhou o país "{pais_sorteado}" em {indice_jogada} tentativas!')
     print('Finalizando jogo...')
     tentativas = 0
 
@@ -231,6 +246,9 @@ while tentativas > 0:
       tentativas = 0
     elif desistir == 'n':
       print('Voltando ao jogo...')
+  
+  indice_jogada += 1
+
 print('')
 print('Fim de jogo! \n')
 print(f'O país sortedo era {pais_sorteado}!')

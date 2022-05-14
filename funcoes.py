@@ -41,12 +41,6 @@ def cor_predominante(dic):
             corp = cor
     return corp
 
-def crescente(dist,pais):
-    dic = {}
-    for distancia in dist:
-        dic[distancia] = pais[dist.index(distancia)]
-    return dic
-    
 
 
 

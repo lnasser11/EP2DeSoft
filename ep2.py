@@ -271,7 +271,7 @@ while jogar_novamente:
   if jogar_novamente == 'n':
     jogar_novamente = False
     print('Até a próxima!')
-  else:
+  elif jogar_novamente == 's':
     lista_distancias = []
     lista_dist_colorido = []
     lista_tentativas = []
@@ -289,3 +289,29 @@ while jogar_novamente:
     longitude = ((dados[pais_sorteado])['geo'])['longitude']
     bandeira = (dados[pais_sorteado])['bandeira']
     continente = (dados[pais_sorteado])['continente']
+
+  if jogar_novamente != 'n' or jogar_novamente != 's':
+    while jogar_novamente != 'n' or jogar_novamente != 's':
+      jogar_novamente = input('Escolha uma opção válida [s|n] ')
+      if jogar_novamente == 'n':
+        jogar_novamente = False
+        print('Até a próxima!')
+        break
+      elif jogar_novamente == 's':
+        lista_distancias = []
+        lista_dist_colorido = []
+        lista_tentativas = []
+        lista_dicas = [1,2,3,4,5,6]
+        capital_str = ''
+        inventario = {}
+        dic_distancia = {}
+        indice_jogada = 1
+        c = 0 
+        d = 0
+        area = (dados[pais_sorteado])['area']
+        populacao = (dados[pais_sorteado])['populacao']
+        capital = (dados[pais_sorteado])['capital']
+        latitude = ((dados[pais_sorteado])['geo'])['latitude']
+        longitude = ((dados[pais_sorteado])['geo'])['longitude']
+        bandeira = (dados[pais_sorteado])['bandeira']
+        continente = (dados[pais_sorteado])['continente']

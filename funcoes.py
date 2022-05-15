@@ -35,7 +35,7 @@ def sorteia_pais(dict):
 def cor_predominante(dic):
     i = 0
     corp = ''
-    for cor, valor in dic.items():
+    for cor in dic.items():
         if dic[cor] > i:
             i = dic[cor]
             corp = cor

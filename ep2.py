@@ -84,7 +84,7 @@ escolha_dificuldade = f'[{um}|{dois}|{tres}]'
 
 tentativas = 0
 
-print('=====================================\n|                                   |\n|    Bem vindo ao Insper Países!    |\n|                                   |\n======== Design de Software =========')
+print(cor(255,255,255, '=====================================\n|                                   |\n|    Bem vindo ao Insper Países!    |\n|                                   |\n======== Design de Software ========='))
 print(' ')
 print('Comandos:\n   dica       - entra no mercado de dicas\n   desisto    - desiste da rodada\n   inventario - exibe sua pontuação')
 print('Chute um país até acertar para vencer!\nEscreva em letras minúsculas e sem acento!')
@@ -270,7 +270,8 @@ while jogar_novamente:
   jogar_novamente = input('Deseja jogar novamente? [s|n] ')
   if jogar_novamente == 'n':
     jogar_novamente = False
-    print('Até a próxima!')
+    print('\nAté a próxima!')
+    break
   elif jogar_novamente == 's':
     lista_distancias = []
     lista_dist_colorido = []
@@ -292,7 +293,7 @@ while jogar_novamente:
 
   if jogar_novamente != 'n' or jogar_novamente != 's':
     while jogar_novamente != 'n' or jogar_novamente != 's':
-      jogar_novamente = input('Escolha uma opção válida [s|n] ')
+      jogar_novamente = input('Escolha uma opção válida, deseja jogar novamente? [s|n] ')
       if jogar_novamente == 'n':
         jogar_novamente = False
         print('Até a próxima!')

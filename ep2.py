@@ -125,7 +125,6 @@ while jogar_novamente:
   print(' ')
   print(' ')
 
-  print(pais_sorteado)
 
   if tentativas > 10:
     print(f'Tentativas restantes:', f'\033[0;32m {tentativas}\033[0;0m')

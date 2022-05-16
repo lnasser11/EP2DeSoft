@@ -32,15 +32,3 @@ def sorteia_pais(dict):
     pais = rd.choice(list(dict))
     return pais
 
-def cor_predominante(dic):
-    i = 0
-    corp = ''
-    for cor in dic.items():
-        if dic[cor] > i:
-            i = dic[cor]
-            corp = cor
-    return corp
-
-
-
-

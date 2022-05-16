@@ -30,11 +30,13 @@ continente = (dados[pais_sorteado])['continente']
 lista_distancias = []
 lista_dist_colorido = []
 lista_tentativas = []
-lista_dicas = [1,2,3,4,5,6]
+lista_dicas = ['1','2','3','4','5','6']
 capital_str = ''
 inventario = {}
 dic_distancia = {} #dicionario de distancias
 jogar_novamente = True
+lista_bandeira = []
+cores_bandeira = ''
 
 indice_jogada = 1
 c = 0 # Index das letras da capital para a dica 2 
@@ -43,20 +45,27 @@ d = 0 # index das distancias
 
 
 header = '========================================'
-cdica1 = cor(66, 135, 245,'4')
-cdica2 = cor(66, 135, 245,'3')
-cdica3 = cor(66, 135, 245,'6')
-cdica4 = cor(66, 135, 245,'5')
-cdica5 = cor(66, 135, 245,'7')
-cdica6 = cor(66, 135, 245,'0')
+cdica1 = cor(111, 168, 50,'4 tentativas')
+cdica2 = cor(111, 168, 50,'3 tentativas')
+cdica3 = cor(111, 168, 50,'6 tentativas')
+cdica4 = cor(111, 168, 50,'5 tentativas')
+cdica5 = cor(111, 168, 50,'7 tentativas')
+cdica6 = cor(111, 168, 50,'0 tentativas')
+
+u_cor = cor(207, 23, 32, '1.')
+d_cor = cor(207, 23, 32, '2.')
+t_cor = cor(207, 23, 32, '3.')
+q_cor = cor(207, 23, 32, '4.')
+c_cor = cor(207, 23, 32, '5.')
+s_cor = cor(207, 23, 32, '6.')
 
 dic_dicas = {
-  1: f'1. Cor da bandeira  - custa {cdica1} tentativas.',
-  2: f'2. Letra da capital - custa {cdica2} tentativas.',
-  3: f'3. Área             - custa {cdica3} tentativas.',
-  4: f'4. População        - custa {cdica4} tentativas.',
-  5: f'5. Continente       - custa {cdica5} tentativas.',
-  6: f'6. Sair do mercado.'
+  1: f'{u_cor} Cor da bandeira  - custa {cdica1}.',
+  2: f'{d_cor} Letra da capital - custa {cdica2}.',
+  3: f'{t_cor} Área             - custa {cdica3}.',
+  4: f'{q_cor} População        - custa {cdica4}.',
+  5: f'{c_cor} Continente       - custa {cdica5}.',
+  6: f'{s_cor} Sair do mercado.'
 }
 
 custo_dicas = {
@@ -82,13 +91,14 @@ tres = cor(255, 69, 36, '3')
 
 escolha_dificuldade = f'[{um}|{dois}|{tres}]'
 
+vermelho = cor(207, 23, 32, 'vermelho')
+
 tentativas = 0
 
 print(cor(255,255,255, '=====================================\n|                                   |\n|    Bem vindo ao Insper Países!    |\n|                                   |\n======== Design de Software ========='))
 print(' ')
-print('Comandos:\n   dica       - entra no mercado de dicas\n   desisto    - desiste da rodada\n   inventario - exibe sua pontuação')
-print('Chute um país até acertar para vencer!\nEscreva em letras minúsculas e sem acento!')
-print(' ')
+print('Comandos:\n   dica       - entra no mercado de dicas\n   desisto    - desiste da rodada\n   inventario - exibe suas dicas obtidas')
+print('\nChute um país até acertar para vencer!\nEscreva em letras minúsculas e sem acento!')
 print(' ')
 print(' ')
 
@@ -157,20 +167,32 @@ while jogar_novamente:
           print(dic_dicas[index])
       print(header)
 
-      dica = int(input(f'Escolha sua opção: '))
+      dica = input(f'Escolha sua opção. Escolha um dos números que estão em {vermelho}: ')
 
-      if dica >= 7 or dica not in lista_dicas: 
-        print('Por favor, escolha uma dica que esteja no mercado.')
+      if dica >= '7' or dica not in lista_dicas: 
+        print(f'Saindo do mercado. Da próxima vez, por favor, escolha uma dica que esteja no mercado. Escolha um dos números que estão em {vermelho}.')
 
-      elif dica == 1 and dica in lista_dicas: #dica 1
-        cor_pais = cor_predominante(bandeira)
-        print(f'A cor predominante da bandeira é: {cor_pais}')
+      elif dica == '1' and dica in lista_dicas: #dica 1
+        if tentativas < 4:  
+          print('Você não pode comprar essa dica.')
+        for cores in bandeira:
+          if bandeira[cores] > 0:
+            lista_bandeira.append(cores)
+
+        for index in range(len(lista_bandeira)):
+          if lista_bandeira[index] == 'outras':
+            del lista_bandeira[index]
+        
+        for colors in lista_bandeira:
+          cores_bandeira += f'{colors}; '
+    
+        print(f'As cores da bandeira são: {cores_bandeira}')
         tentativas -= 4
-        inventario['Cor da bandeira: '] = cor_pais
+        inventario['Cor da bandeira: '] = cores_bandeira
         del dic_dicas[1]
         del lista_dicas[0]
 
-      elif dica == 2 and dica in  lista_dicas: #dica 2
+      elif dica == '2' and dica in  lista_dicas: #dica 2
         if tentativas < 3:  
           print('Você não pode comprar essa dica.')
         else:
@@ -184,28 +206,34 @@ while jogar_novamente:
             del dic_dicas[2]
             del lista_dicas[1]
 
-      elif dica == 3 and dica in  lista_dicas: #dica 3
+      elif dica == '3' and dica in  lista_dicas: #dica 3
+        if tentativas < 6:  
+          print('Você não pode comprar essa dica.')
         print(f'A área do país é: {area}')
         del dic_dicas[3]
         del lista_dicas[2]
         inventario['Área do país: '] = area
         tentativas -= 6
 
-      elif dica == 4 and dica in  lista_dicas: #dica 4
+      elif dica == '4' and dica in  lista_dicas: #dica 4
+        if tentativas < 5:  
+          print('Você não pode comprar essa dica.')
         print(f'{populacao} pessoas.')
         tentativas -= 5
         inventario['População'] = populacao
         del dic_dicas[4]
         del lista_dicas[3]
 
-      elif dica == 5 and dica in  lista_dicas: #dica 5
+      elif dica == '5' and dica in  lista_dicas: #dica 5
+        if tentativas < 7:  
+          print('Você não pode comprar essa dica.')
         print(f'Está no continente: {continente}')
         tentativas -= 7
         inventario['Continente'] = continente
         del dic_dicas[5]
         del lista_dicas[4]
 
-      elif dica == 6: #dica 6
+      elif dica == '6': #dica 6
         print('\n\nVoltando ao jogo!\n\n')
       
 

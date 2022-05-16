@@ -135,7 +135,7 @@ while jogar_novamente:
   print(' ')
   print(' ')
 
-  print(pais_sorteado)
+
 
 
   if tentativas > 10:

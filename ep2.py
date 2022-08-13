@@ -107,7 +107,7 @@ while jogar_novamente:
   #Define a dificuldade do jogo
   dif = input(f'Escolha sua dificuldade:\n   1. {facil_str} --> {facil} tentativas\n   2. {medio_str} --> {medio} tentativas\n   3. {dificil_str} --> {dificil} tentativas\n    Dificuldade escolhida {escolha_dificuldade}: ')
   if dif == '1':
-    tentativas += 20s
+    tentativas += 20
   elif dif == '2':
     tentativas += 10
   elif dif == '3':
